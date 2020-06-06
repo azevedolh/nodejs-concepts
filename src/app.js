@@ -24,6 +24,15 @@ function checkRepositoryExists(request, response, next) {
   return next();
 };
 
+function logRequests(request, response, next) {
+  const { method, url } = request;
+
+  console.log(`[${method}] - ${url}`);
+
+  return next();
+}
+
+app.use(logRequests);
 app.use('/repositories/:id', checkRepositoryExists);
 
 app.get("/repositories", (request, response) => {
